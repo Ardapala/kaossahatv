@@ -13,6 +13,7 @@
   th { background:#333; }
   @media(max-width:600px){
     th, td { font-size:12px; padding:4px; }
+    #player-container { height: 250px !important; }
   }
 </style>
 </head>
@@ -55,10 +56,14 @@
   // Süper Lig puan tablosu
   async function fetchLeagueTable() {
     try {
-      const res = await fetch('https://api.kaossahastats.xyz/superlig'); // Örnek: JSON API
+      const res = await fetch('https://api.kaossahastats.xyz/superlig'); // Güncel JSON API
       const data = await res.json();
       const tbody = $('#league-table tbody');
       tbody.empty();
+      if (!data.teams || data.teams.length === 0) {
+        tbody.html('<tr><td colspan="7">Puan tablosu bulunamadı</td></tr>');
+        return;
+      }
       data.teams.forEach((team, index) => {
         tbody.append(`
           <tr>
@@ -78,8 +83,9 @@
     }
   }
 
+  // İlk yüklemede ve her 60 saniyede güncelle
   fetchLeagueTable();
-  setInterval(fetchLeagueTable, 60000); // her 60 saniyede güncelle
+  setInterval(fetchLeagueTable, 60000);
 </script>
 
 </body>
