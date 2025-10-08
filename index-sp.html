@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canlı Yayın & Süper Lig Puan Tablosu</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+}
+#player-container {
+  width: 100%;
+  height: 65vh;
+  background: #000;
+}
+#puan-tablosu {
+  width: 100%;
+  background: #111;
+  padding: 20px;
+  text-align: center;
+}
+iframe {
+  border: none;
+  width: 100%;
+  height: 700px;
+  border-radius: 10px;
+}
+h2 {
+  margin-bottom: 10px;
+  color: #00bcd4;
+}
+</style>
+</head>
+
+<body>
+  <div id="player-container"></div>
+
+  <div id="puan-tablosu">
+    <h2>🏆 Süper Lig Güncel Puan Tablosu</h2>
+    <iframe src="https://www.mackolik.com/puan-durumu/türkiye-süper-lig/2024-2025/482ofyysbdbeoxauk19yg7tdt"></iframe>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@clappr/player@0.4.7/dist/clappr.min.js"></script>
+  <script>
+    class StreamPlayer {
+      constructor() {
+        this.baseStreamUrl = 'https://df16ea90s1u1080.0227f5e80acfd3ae.live/live/';
+        const urlParams = new URLSearchParams(window.location.search);
+        const streamId = urlParams.get('id') || 'selcukbeinsports1';
+        this.player = new Clappr.Player({
+          source: `${this.baseStreamUrl}${streamId}/playlist.m3u8`,
+          parentId:'#player-container',
+          autoPlay:true,
+          width:'100%',
+          height:'100%',
+        });
+      }
+    }
+    $(document).ready(()=>{ new StreamPlayer(); });
+  </script>
+</body>
+</html>
