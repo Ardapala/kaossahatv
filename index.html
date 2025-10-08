@@ -1,47 +1,86 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maç Yayını + Süper Lig Puan Tablosu</title>
-    <style>
-        body { margin: 0; font-family: Arial, sans-serif; background: #f0f0f0; }
-        #player-container { width: 100%; height: 50vh; background: #000; }
-        #table-container { width: 90%; max-width: 900px; margin: 20px auto; }
-        table { width: 100%; border-collapse: collapse; background: #fff; }
-        th, td { padding: 8px 12px; border: 1px solid #ccc; text-align: center; }
-        th { background: #0077cc; color: #fff; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KaosSahaTV - Canlı Maç</title>
+<style>
+  body { margin:0; font-family: Arial, sans-serif; background:#111; color:#fff; }
+  #player-container { width:100%; max-width:960px; margin:20px auto; }
+  #table-container { width:90%; max-width:960px; margin:20px auto; background:#222; padding:10px; border-radius:8px; }
+  table { width:100%; border-collapse: collapse; }
+  th, td { padding:8px; text-align:center; border:1px solid #444; }
+  th { background:#333; }
+  @media(max-width:600px){
+    th, td { font-size:12px; padding:4px; }
+  }
+</style>
 </head>
 <body>
 
-    <!-- Player -->
-    <div id="player-container"></div>
+<div id="player-container"></div>
 
-    <!-- Puan Tablosu -->
-    <div id="table-container">
-        <h2>Süper Lig Puan Tablosu</h2>
-        <table id="league-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Takım</th>
-                    <th>O</th>
-                    <th>G</th>
-                    <th>B</th>
-                    <th>M</th>
-                    <th>P</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
+<div id="table-container">
+  <h2 style="text-align:center;">Süper Lig Puan Tablosu</h2>
+  <table id="league-table">
+    <thead>
+      <tr>
+        <th>Sıra</th>
+        <th>Takım</th>
+        <th>O</th>
+        <th>G</th>
+        <th>B</th>
+        <th>M</th>
+        <th>Puan</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
 
-    <!-- Scriptler -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@clappr/player@0.4.7/dist/clappr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@clappr/player@0.4.7/dist/clappr.min.js"></script>
 
-    <script>
-        // Player
-        const baseStreamUrl = 'https://df16ea90s1u1080.0227f5e80acfd3ae.live/live/';
-        const streamId
+<script>
+  // Player
+  const player = new Clappr.Player({
+    source: 'https://df16ea90s1u1080.0227f5e80acfd3ae.live/live/selcukbeinsports1/playlist.m3u8',
+    parentId: '#player-container',
+    width: '100%',
+    height: '540px',
+    autoPlay: true,
+    mute: false
+  });
+
+  // Süper Lig puan tablosu
+  async function fetchLeagueTable() {
+    try {
+      const res = await fetch('https://api.kaossahastats.xyz/superlig'); // Örnek: JSON API
+      const data = await res.json();
+      const tbody = $('#league-table tbody');
+      tbody.empty();
+      data.teams.forEach((team, index) => {
+        tbody.append(`
+          <tr>
+            <td>${index+1}</td>
+            <td>${team.name}</td>
+            <td>${team.played}</td>
+            <td>${team.won}</td>
+            <td>${team.draw}</td>
+            <td>${team.lost}</td>
+            <td>${team.points}</td>
+          </tr>
+        `);
+      });
+    } catch(e) {
+      console.error('Puan tablosu yüklenemedi:', e);
+      $('#league-table tbody').html('<tr><td colspan="7">Puan tablosu yüklenemedi</td></tr>');
+    }
+  }
+
+  fetchLeagueTable();
+  setInterval(fetchLeagueTable, 60000); // her 60 saniyede güncelle
+</script>
+
+</body>
+</html>
