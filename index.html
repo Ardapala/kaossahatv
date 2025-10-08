@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KaosSahaTV - Canlı Maç</title>
-<style>
-  body { margin:0; font-family: Arial, sans-serif; background:#111; color:#fff; }
-  header { text-align:center; padding:10px; background:#000; }
-  header img { height:60px; }
-  #player-container { width:100%; max-width:960px; margin:20px auto; }
-  #live-matches, #table-container { width:90%; max-width:960px; margin:20px auto; background:#222; padding:10px; border-radius:8px; }
-  h2 { text-align:center; margin:10px 0; }
-  table { width:100%; border-collapse: collapse; }
-  th, td { padding:8px; text-align:center; border:1px solid #444; }
-  th { background:#333; }
-  @media(max-width:600px){
-    th, td { font-size:12px; padding:4px; }
-    #player-container { height:250px !important; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KaosSahaTV - Canlı Maç</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#111; color:#fff; }
+    header { text-align:center; padding:10px; background:#000; }
+    header img { height:60px; }
+    #player-container { width:100%; max-width:960px; margin:20px auto; }
+    #live-matches, #table-container { width:90%; max-width:960px; margin:20px auto; background:#222; padding:10px; border-radius:8px; }
+    h2 { text-align:center; margin:10px 0; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { padding:8px; text-align:center; border:1px solid #444; }
+    th { background:#333; }
+    @media(max-width:600px){
+      th, td { font-size:12px; padding:4px; }
+      #player-container { height:250px !important; }
+    }
+  </style>
 </head>
 <body>
 
@@ -74,49 +74,69 @@
     mute: false
   });
 
-  // Google Sheets üzerinden Süper Lig puan tablosu
+  // API linklerinden veri çekme fonksiyonları
   async function fetchLeagueTable() {
     try {
-      const res = await fetch('https://spreadsheets.google.com/feeds/list/11W0Urtul_moHRRn8zhRf5cPhFGZWmDIgh_jmFR_uUPU/od6/public/values?alt=json');
+      const res = await fetch('https://emirrtopaloglu.github.io/super-lig-api/standings.json');
+      // Not: Bu URL örnek, projenin README’sinde JSON URL’si var mı ona bak
       const data = await res.json();
       const tbody = $('#league-table tbody');
       tbody.empty();
 
-      const rows = data.feed.entry;
-      if(!rows || rows.length===0){
-        tbody.html('<tr><td colspan="7">Puan tablosu bulunamadı</td></tr>');
+      if (!data.standings) {
+        tbody.html('<tr><td colspan="7">Puan bilgisi yok</td></tr>');
         return;
       }
 
-      rows.forEach((row, index)=>{
+      data.standings.forEach((team, idx) => {
         tbody.append(`
           <tr>
-            <td>${index+1}</td>
-            <td>${row.gsx$takım.$t}</td>
-            <td>${row.gsx$o.$t}</td>
-            <td>${row.gsx$g.$t}</td>
-            <td>${row.gsx$b.$t}</td>
-            <td>${row.gsx$m.$t}</td>
-            <td>${row.gsx$puan.$t}</td>
+            <td>${idx + 1}</td>
+            <td>${team.teamName}</td>
+            <td>${team.played}</td>
+            <td>${team.wins}</td>
+            <td>${team.draws}</td>
+            <td>${team.losses}</td>
+            <td>${team.points}</td>
           </tr>
         `);
       });
-    } catch(e) {
+    } catch (e) {
       console.error('Puan tablosu yüklenemedi:', e);
       $('#league-table tbody').html('<tr><td colspan="7">Puan tablosu yüklenemedi</td></tr>');
     }
   }
 
-  // Canlı maç saatleri (boş örnek, istersen Google Sheets veya başka API ile bağlanabilir)
   async function fetchLiveMatches() {
-    const tbody = $('#matches-table tbody');
-    tbody.empty();
-    tbody.html('<tr><td colspan="3">Canlı maçlar henüz eklenmedi</td></tr>');
+    try {
+      const res = await fetch('https://emirrtopaloglu.github.io/super-lig-api/matches.json');
+      // Aynı şekilde matches JSON dosyası
+      const data = await res.json();
+      const tbody = $('#matches-table tbody');
+      tbody.empty();
+      if (!data.matches) {
+        tbody.html('<tr><td colspan="3">Canlı maç yok</td></tr>');
+        return;
+      }
+      data.matches.forEach(match => {
+        tbody.append(`
+          <tr>
+            <td>${match.time}</td>
+            <td>${match.homeTeam}</td>
+            <td>${match.awayTeam}</td>
+          </tr>
+        `);
+      });
+    } catch (e) {
+      console.error('Canlı maçlar yüklenemedi:', e);
+      $('#matches-table tbody').html('<tr><td colspan="3">Canlı maçlar yüklenemedi</td></tr>');
+    }
   }
 
+  // İlk yükleme ve zamanlı güncelleme
   fetchLeagueTable();
   fetchLiveMatches();
-  setInterval(fetchLeagueTable, 60000); // her 60 saniyede güncelle
+  setInterval(fetchLeagueTable, 60000);
   setInterval(fetchLiveMatches, 60000);
 </script>
 
