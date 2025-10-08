@@ -6,23 +6,44 @@
 <title>KaosSahaTV - Canlı Maç</title>
 <style>
   body { margin:0; font-family: Arial, sans-serif; background:#111; color:#fff; }
+  header { text-align:center; padding:10px; background:#000; }
+  header img { height:60px; }
   #player-container { width:100%; max-width:960px; margin:20px auto; }
-  #table-container { width:90%; max-width:960px; margin:20px auto; background:#222; padding:10px; border-radius:8px; }
+  #live-matches, #table-container { width:90%; max-width:960px; margin:20px auto; background:#222; padding:10px; border-radius:8px; }
+  h2 { text-align:center; margin:10px 0; }
   table { width:100%; border-collapse: collapse; }
   th, td { padding:8px; text-align:center; border:1px solid #444; }
   th { background:#333; }
   @media(max-width:600px){
     th, td { font-size:12px; padding:4px; }
-    #player-container { height: 250px !important; }
+    #player-container { height:250px !important; }
   }
 </style>
 </head>
 <body>
 
+<header>
+  <img src="https://kaossahatv.com/logo.png" alt="KaosSahaTV Logo"> <!-- Logo buraya -->
+</header>
+
 <div id="player-container"></div>
 
+<div id="live-matches">
+  <h2>Canlı Maç Saatleri</h2>
+  <table id="matches-table">
+    <thead>
+      <tr>
+        <th>Saat</th>
+        <th>Ev Sahibi</th>
+        <th>Deplasman</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
 <div id="table-container">
-  <h2 style="text-align:center;">Süper Lig Puan Tablosu</h2>
+  <h2>Süper Lig Puan Tablosu</h2>
   <table id="league-table">
     <thead>
       <tr>
@@ -56,15 +77,15 @@
   // Süper Lig puan tablosu
   async function fetchLeagueTable() {
     try {
-      const res = await fetch('https://api.kaossahastats.xyz/superlig'); // Güncel JSON API
+      const res = await fetch('https://api.kaossahastats.xyz/superlig'); // JSON API
       const data = await res.json();
       const tbody = $('#league-table tbody');
       tbody.empty();
-      if (!data.teams || data.teams.length === 0) {
+      if(!data.teams || data.teams.length===0){
         tbody.html('<tr><td colspan="7">Puan tablosu bulunamadı</td></tr>');
         return;
       }
-      data.teams.forEach((team, index) => {
+      data.teams.forEach((team,index)=>{
         tbody.append(`
           <tr>
             <td>${index+1}</td>
@@ -77,15 +98,42 @@
           </tr>
         `);
       });
-    } catch(e) {
+    }catch(e){
       console.error('Puan tablosu yüklenemedi:', e);
       $('#league-table tbody').html('<tr><td colspan="7">Puan tablosu yüklenemedi</td></tr>');
     }
   }
 
-  // İlk yüklemede ve her 60 saniyede güncelle
+  // Canlı maç saatleri
+  async function fetchLiveMatches() {
+    try {
+      const res = await fetch('https://api.kaossahastats.xyz/superlig/matches'); // JSON API
+      const data = await res.json();
+      const tbody = $('#matches-table tbody');
+      tbody.empty();
+      if(!data.matches || data.matches.length===0){
+        tbody.html('<tr><td colspan="3">Canlı maç yok</td></tr>');
+        return;
+      }
+      data.matches.forEach(match=>{
+        tbody.append(`
+          <tr>
+            <td>${match.time}</td>
+            <td>${match.home}</td>
+            <td>${match.away}</td>
+          </tr>
+        `);
+      });
+    }catch(e){
+      console.error('Canlı maçlar yüklenemedi:', e);
+      $('#matches-table tbody').html('<tr><td colspan="3">Canlı maçlar yüklenemedi</td></tr>');
+    }
+  }
+
   fetchLeagueTable();
-  setInterval(fetchLeagueTable, 60000);
+  fetchLiveMatches();
+  setInterval(fetchLeagueTable,60000); // her 60 saniye
+  setInterval(fetchLiveMatches,60000); // her 60 saniye
 </script>
 
 </body>
