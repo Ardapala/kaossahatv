@@ -15,6 +15,8 @@
     th, td { padding:8px; text-align:center; border:1px solid #444; }
     th { background:#333; }
     img.logo { height:24px; vertical-align:middle; margin-right:6px; }
+    a.chat-link { display:block; text-align:center; margin:20px; color:#ffcc00; text-decoration:none; font-weight:bold; }
+    a.chat-link:hover { color:#fff; }
     @media(max-width:600px){
       th, td { font-size:12px; padding:4px; }
       #player-container { height:250px !important; }
@@ -72,27 +74,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr><td>1</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/3/3b/Galatasaray_Logo.png">Galatasaray</td><td>8</td><td>7</td><td>1</td><td>0</td><td>20</td><td>3</td><td>17</td><td>22</td></tr>
-      <tr><td>2</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/5/5a/TrabzonsporAmblem.png">Trabzonspor</td><td>8</td><td>5</td><td>2</td><td>1</td><td>13</td><td>6</td><td>7</td><td>17</td></tr>
-      <tr><td>3</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/4/41/G%C3%B6ztepe_logo.png">Göztepe</td><td>8</td><td>4</td><td>4</td><td>0</td><td>11</td><td>2</td><td>9</td><td>16</td></tr>
-      <tr><td>4</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/b/bd/Fenerbah%C3%A7e_SK.png">Fenerbahçe</td><td>8</td><td>4</td><td>4</td><td>0</td><td>12</td><td>5</td><td>7</td><td>16</td></tr>
-      <tr><td>5</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/5/5d/Gaziantep_FK_logo.png">Gaziantep FK</td><td>8</td><td>4</td><td>2</td><td>2</td><td>12</td><td>12</td><td>0</td><td>14</td></tr>
-      <tr><td>6</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/7/7b/Besiktas_JK_Logo.png">Beşiktaş</td><td>7</td><td>4</td><td>1</td><td>2</td><td>12</td><td>9</td><td>3</td><td>13</td></tr>
-      <tr><td>7</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/3/38/Samsunspor_logo.png">Samsunspor</td><td>8</td><td>3</td><td>4</td><td>1</td><td>10</td><td>8</td><td>2</td><td>13</td></tr>
-      <tr><td>8</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/0/0f/Konyaspor_logo.png">Konyaspor</td><td>7</td><td>3</td><td>2</td><td>2</td><td>13</td><td>9</td><td>4</td><td>11</td></tr>
-      <tr><td>9</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/4/4c/Alanyaspor_logo.png">Alanyaspor</td><td>8</td><td>2</td><td>4</td><td>2</td><td>10</td><td>9</td><td>1</td><td>10</td></tr>
-      <tr><td>10</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/f/fb/Antalyaspor_logo.png">Antalyaspor</td><td>8</td><td>3</td><td>1</td><td>4</td><td>9</td><td>13</td><td>-4</td><td>10</td></tr>
-      <tr><td>11</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/9/9b/Kas%C4%B1mpa%C5%9Fa_logo.png">Kasımpaşa</td><td>8</td><td>2</td><td>3</td><td>3</td><td>8</td><td>9</td><td>-1</td><td>9</td></tr>
-      <tr><td>12</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/4/4b/Caykur_Rizespor_logo.png">Rizespor</td><td>7</td><td>2</td><td>2</td><td>3</td><td>9</td><td>11</td><td>-2</td><td>8</td></tr>
-      <tr><td>13</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/2/24/%C4%B0stanbul_Ba%C5%9Fak%C5%9Fehir_FK_logo.png">Başakşehir</td><td>7</td><td>1</td><td>3</td><td>3</td><td>6</td><td>7</td><td>-1</td><td>6</td></tr>
-      <tr><td>14</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/d/d5/Gen%C3%A7lerbirli%C4%9Fi_logo.png">Gençlerbirliği</td><td>8</td><td>1</td><td>2</td><td>5</td><td>7</td><td>12</td><td>-5</td><td>5</td></tr>
-      <tr><td>15</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/1/16/Kocaelispor_logo.png">Kocaelispor</td><td>8</td><td>1</td><td>2</td><td>5</td><td>5</td><td>12</td><td>-7</td><td>5</td></tr>
-      <tr><td>16</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/b/b1/Ey%C3%BCpspor_logo.png">Eyüpspor</td><td>8</td><td>1</td><td>2</td><td>5</td><td>4</td><td>11</td><td>-7</td><td>5</td></tr>
-      <tr><td>17</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/7/7e/Kayserispor_logo.png">Kayserispor</td><td>8</td><td>0</td><td>5</td><td>3</td><td>5</td><td>17</td><td>-12</td><td>5</td></tr>
-      <tr><td>18</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/2/2a/Fatih_Karag%C3%BCmr%C3%BCk_logo.png">Fatih Karagümrük</td><td>8</td><td>0</td><td>5</td><td>3</td><td>5</td><td>17</td><td>-12</td><td>5</td></tr>
+      <!-- Tablo içeriği burada -->
     </tbody>
   </table>
 </div>
+
+<!-- Sohbete katıl linki -->
+<a href="sohbet.html" target="_blank" class="chat-link">💬 Canlı Sohbete Katıl</a>
 
 <script src="https://cdn.jsdelivr.net/npm/@clappr/player@0.4.7/dist/clappr.min.js"></script>
 <script>
