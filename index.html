@@ -14,6 +14,7 @@
     table { width:100%; border-collapse: collapse; }
     th, td { padding:8px; text-align:center; border:1px solid #444; }
     th { background:#333; }
+    img.logo { height:24px; vertical-align:middle; margin-right:6px; }
     @media(max-width:600px){
       th, td { font-size:12px; padding:4px; }
       #player-container { height:250px !important; }
@@ -29,7 +30,7 @@
 <div id="player-container"></div>
 
 <div id="live-matches">
-  <h2>Canlı Maç Saatleri</h2>
+  <h2>Bugün Oynanacak Maçlar ⚽</h2>
   <table id="matches-table">
     <thead>
       <tr>
@@ -38,7 +39,18 @@
         <th>Deplasman</th>
       </tr>
     </thead>
-    <tbody></tbody>
+    <tbody>
+      <tr>
+        <td>20:00</td>
+        <td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/3/3b/Galatasaray_Logo.png">Galatasaray</td>
+        <td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/b/bd/Fenerbah%C3%A7e_SK.png">Fenerbahçe</td>
+      </tr>
+      <tr>
+        <td>17:00</td>
+        <td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/7/7b/Besiktas_JK_Logo.png">Beşiktaş</td>
+        <td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/5/5a/TrabzonsporAmblem.png">Trabzonspor</td>
+      </tr>
+    </tbody>
   </table>
 </div>
 
@@ -53,18 +65,37 @@
         <th>G</th>
         <th>B</th>
         <th>M</th>
-        <th>Puan</th>
+        <th>A</th>
+        <th>Y</th>
+        <th>AV</th>
+        <th>P</th>
       </tr>
     </thead>
-    <tbody></tbody>
+    <tbody>
+      <tr><td>1</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/3/3b/Galatasaray_Logo.png">Galatasaray</td><td>8</td><td>7</td><td>1</td><td>0</td><td>20</td><td>3</td><td>17</td><td>22</td></tr>
+      <tr><td>2</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/5/5a/TrabzonsporAmblem.png">Trabzonspor</td><td>8</td><td>5</td><td>2</td><td>1</td><td>13</td><td>6</td><td>7</td><td>17</td></tr>
+      <tr><td>3</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/4/41/G%C3%B6ztepe_logo.png">Göztepe</td><td>8</td><td>4</td><td>4</td><td>0</td><td>11</td><td>2</td><td>9</td><td>16</td></tr>
+      <tr><td>4</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/b/bd/Fenerbah%C3%A7e_SK.png">Fenerbahçe</td><td>8</td><td>4</td><td>4</td><td>0</td><td>12</td><td>5</td><td>7</td><td>16</td></tr>
+      <tr><td>5</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/5/5d/Gaziantep_FK_logo.png">Gaziantep FK</td><td>8</td><td>4</td><td>2</td><td>2</td><td>12</td><td>12</td><td>0</td><td>14</td></tr>
+      <tr><td>6</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/7/7b/Besiktas_JK_Logo.png">Beşiktaş</td><td>7</td><td>4</td><td>1</td><td>2</td><td>12</td><td>9</td><td>3</td><td>13</td></tr>
+      <tr><td>7</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/3/38/Samsunspor_logo.png">Samsunspor</td><td>8</td><td>3</td><td>4</td><td>1</td><td>10</td><td>8</td><td>2</td><td>13</td></tr>
+      <tr><td>8</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/0/0f/Konyaspor_logo.png">Konyaspor</td><td>7</td><td>3</td><td>2</td><td>2</td><td>13</td><td>9</td><td>4</td><td>11</td></tr>
+      <tr><td>9</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/4/4c/Alanyaspor_logo.png">Alanyaspor</td><td>8</td><td>2</td><td>4</td><td>2</td><td>10</td><td>9</td><td>1</td><td>10</td></tr>
+      <tr><td>10</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/f/fb/Antalyaspor_logo.png">Antalyaspor</td><td>8</td><td>3</td><td>1</td><td>4</td><td>9</td><td>13</td><td>-4</td><td>10</td></tr>
+      <tr><td>11</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/9/9b/Kas%C4%B1mpa%C5%9Fa_logo.png">Kasımpaşa</td><td>8</td><td>2</td><td>3</td><td>3</td><td>8</td><td>9</td><td>-1</td><td>9</td></tr>
+      <tr><td>12</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/4/4b/Caykur_Rizespor_logo.png">Rizespor</td><td>7</td><td>2</td><td>2</td><td>3</td><td>9</td><td>11</td><td>-2</td><td>8</td></tr>
+      <tr><td>13</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/2/24/%C4%B0stanbul_Ba%C5%9Fak%C5%9Fehir_FK_logo.png">Başakşehir</td><td>7</td><td>1</td><td>3</td><td>3</td><td>6</td><td>7</td><td>-1</td><td>6</td></tr>
+      <tr><td>14</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/d/d5/Gen%C3%A7lerbirli%C4%9Fi_logo.png">Gençlerbirliği</td><td>8</td><td>1</td><td>2</td><td>5</td><td>7</td><td>12</td><td>-5</td><td>5</td></tr>
+      <tr><td>15</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/1/16/Kocaelispor_logo.png">Kocaelispor</td><td>8</td><td>1</td><td>2</td><td>5</td><td>5</td><td>12</td><td>-7</td><td>5</td></tr>
+      <tr><td>16</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/b/b1/Ey%C3%BCpspor_logo.png">Eyüpspor</td><td>8</td><td>1</td><td>2</td><td>5</td><td>4</td><td>11</td><td>-7</td><td>5</td></tr>
+      <tr><td>17</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/7/7e/Kayserispor_logo.png">Kayserispor</td><td>8</td><td>0</td><td>5</td><td>3</td><td>5</td><td>17</td><td>-12</td><td>5</td></tr>
+      <tr><td>18</td><td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/2/2a/Fatih_Karag%C3%BCmr%C3%BCk_logo.png">Fatih Karagümrük</td><td>8</td><td>0</td><td>5</td><td>3</td><td>5</td><td>17</td><td>-12</td><td>5</td></tr>
+    </tbody>
   </table>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@clappr/player@0.4.7/dist/clappr.min.js"></script>
-
 <script>
-  // Player
   const player = new Clappr.Player({
     source: 'https://df16ea90s1u1080.0227f5e80acfd3ae.live/live/selcukbeinsports1/playlist.m3u8',
     parentId: '#player-container',
@@ -73,71 +104,6 @@
     autoPlay: true,
     mute: false
   });
-
-  // API linklerinden veri çekme fonksiyonları
-  async function fetchLeagueTable() {
-    try {
-      const res = await fetch('https://emirrtopaloglu.github.io/super-lig-api/standings.json');
-      // Not: Bu URL örnek, projenin README’sinde JSON URL’si var mı ona bak
-      const data = await res.json();
-      const tbody = $('#league-table tbody');
-      tbody.empty();
-
-      if (!data.standings) {
-        tbody.html('<tr><td colspan="7">Puan bilgisi yok</td></tr>');
-        return;
-      }
-
-      data.standings.forEach((team, idx) => {
-        tbody.append(`
-          <tr>
-            <td>${idx + 1}</td>
-            <td>${team.teamName}</td>
-            <td>${team.played}</td>
-            <td>${team.wins}</td>
-            <td>${team.draws}</td>
-            <td>${team.losses}</td>
-            <td>${team.points}</td>
-          </tr>
-        `);
-      });
-    } catch (e) {
-      console.error('Puan tablosu yüklenemedi:', e);
-      $('#league-table tbody').html('<tr><td colspan="7">Puan tablosu yüklenemedi</td></tr>');
-    }
-  }
-
-  async function fetchLiveMatches() {
-    try {
-      const res = await fetch('https://emirrtopaloglu.github.io/super-lig-api/matches.json');
-      // Aynı şekilde matches JSON dosyası
-      const data = await res.json();
-      const tbody = $('#matches-table tbody');
-      tbody.empty();
-      if (!data.matches) {
-        tbody.html('<tr><td colspan="3">Canlı maç yok</td></tr>');
-        return;
-      }
-      data.matches.forEach(match => {
-        tbody.append(`
-          <tr>
-            <td>${match.time}</td>
-            <td>${match.homeTeam}</td>
-            <td>${match.awayTeam}</td>
-          </tr>
-        `);
-      });
-    } catch (e) {
-      console.error('Canlı maçlar yüklenemedi:', e);
-      $('#matches-table tbody').html('<tr><td colspan="3">Canlı maçlar yüklenemedi</td></tr>');
-    }
-  }
-
-  // İlk yükleme ve zamanlı güncelleme
-  fetchLeagueTable();
-  fetchLiveMatches();
-  setInterval(fetchLeagueTable, 60000);
-  setInterval(fetchLiveMatches, 60000);
 </script>
 
 </body>
