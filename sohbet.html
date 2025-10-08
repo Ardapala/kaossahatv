@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KaosSahaTV - Canlı Sohbet</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#111; color:#fff; }
+    #chat-container { width:90%; max-width:960px; margin:20px auto; background:#222; padding:10px; border-radius:8px; }
+    #chat-box { height:400px; overflow-y:scroll; background:#111; padding:10px; border-radius:5px; margin-bottom:10px; }
+    #chat-input { width:75%; padding:8px; border-radius:5px; border:none; }
+    #send-btn { padding:8px 12px; border:none; border-radius:5px; background:#ffcc00; color:#000; cursor:pointer; }
+  </style>
+</head>
+<body>
+
+<div id="chat-container">
+  <h2>Canlı Sohbet 💬</h2>
+  <div id="chat-box"></div>
+  <input type="text" id="chat-input" placeholder="Mesaj yaz...">
+  <button id="send-btn">Gönder</button>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "BURAYA_API_KEY",
+    authDomain: "BURAYA_AUTH_DOMAIN",
+    databaseURL: "BURAYA_DATABASE_URL",
+    projectId: "BURAYA_PROJECT_ID",
+    storageBucket: "BURAYA_STORAGE_BUCKET",
+    messagingSenderId: "BURAYA_MESSAGING_SENDER_ID",
+    appId: "BURAYA_APP_ID"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  const chatBox = document.getElementById('chat-box');
+  const chatInput = document.getElementById('chat-input');
+  const sendBtn = document.getElementById('send-btn');
+
+  sendBtn.addEventListener('click', () => {
+    const msg = chatInput.value.trim();
+    if(msg==="") return;
+    db.ref('chat').push({user:"Ziyaretçi", text:msg, time:Date.now()});
+    chatInput.value = "";
+  });
+
+  chatInput.addEventListener('keypress', (e) => {
+    if(e.key==="Enter") sendBtn.click();
+  });
+
+  db.ref('chat').on('child_added', (snapshot)=>{
+    const data = snapshot.val();
+    const msgDiv = document.createElement('div');
+    const time = new Date(data.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    msgDiv.textContent = `[${time}] ${data.user}: ${data.text}`;
+    msgDiv.style.padding="4px 0";
+    chatBox.appendChild(msgDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  });
+</script>
+</body>
+</html>
