@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Admin Paneli</title>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+</head>
+<body>
+<h1>Admin Paneli</h1>
+<table border="1">
+  <tr><th>Email</th><th>Tarih</th></tr>
+  <tbody id="users-list"></tbody>
+</table>
+
+<script>
+db.collection('users').get().then(snapshot=>{
+  const tbody = document.getElementById('users-list');
+  snapshot.forEach(doc=>{
+    const data = doc.data();
+    tbody.innerHTML += `<tr><td>${data.email}</td><td>${data.tarih.toDate()}</td></tr>`;
+  });
+});
+</script>
+</body>
+</html>
