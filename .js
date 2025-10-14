@@ -1,11 +1,12 @@
-const firebaseConfig = {
-  apiKey: "SENIN_API_KEY",
-  authDomain: "SENIN_PROJECT.firebaseapp.com",
-  projectId: "SENIN_PROJECT_ID",
-  storageBucket: "SENIN_PROJECT.appspot.com",
-  messagingSenderId: "SENIN_SENDER_ID",
-  appId: "SENIN_APP_ID"
+const sources = {
+  kanal1: "https://example.com/stream1.m3u8",
+  kanal2: "http://iptv.am000.tv:8000/live/add17/add17/294.ts"
 };
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+
+const player = document.getElementById('player');
+player.src = sources.kanal1;
+
+function changeChannel(channel){
+  player.src = sources[channel];
+  player.play();
+}
