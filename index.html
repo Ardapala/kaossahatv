@@ -1,97 +1,53 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KaosSahaTV - Canlı Maç</title>
-  <style>
-    body { margin:0; font-family: Arial, sans-serif; background:#111; color:#fff; }
-    header { text-align:center; padding:10px; background:#000; }
-    header img { height:60px; }
-    #player-container { width:100%; max-width:960px; margin:20px auto; }
-    #live-matches, #table-container { width:90%; max-width:960px; margin:20px auto; background:#222; padding:10px; border-radius:8px; }
-    h2 { text-align:center; margin:10px 0; }
-    table { width:100%; border-collapse: collapse; }
-    th, td { padding:8px; text-align:center; border:1px solid #444; }
-    th { background:#333; }
-    img.logo { height:24px; vertical-align:middle; margin-right:6px; }
-    a.chat-link { display:block; text-align:center; margin:20px; color:#ffcc00; text-decoration:none; font-weight:bold; }
-    a.chat-link:hover { color:#fff; }
-    @media(max-width:600px){
-      th, td { font-size:12px; padding:4px; }
-      #player-container { height:250px !important; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canlı Yayın</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="auth.js"></script>
 </head>
 <body>
 
-<header>
-  <img src="https://kaossahatv.com/logo.png" alt="KaosSahaTV Logo">
-</header>
+<div class="container">
+  <h1>📺 Canlı Yayın</h1>
 
-<div id="player-container"></div>
+  <div id="auth-section">
+    <h3>Giriş Yap / Kayıt Ol</h3>
+    <input type="email" id="email" placeholder="E-posta">
+    <input type="password" id="password" placeholder="Şifre">
+    <button onclick="register()">Kayıt Ol</button>
+    <button onclick="login()">Giriş Yap</button>
+  </div>
 
-<div id="live-matches">
-  <h2>Bugün Oynanacak Maçlar ⚽</h2>
-  <table id="matches-table">
-    <thead>
-      <tr>
-        <th>Saat</th>
-        <th>Ev Sahibi</th>
-        <th>Deplasman</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>20:00</td>
-        <td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/3/3b/Galatasaray_Logo.png">Galatasaray</td>
-        <td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/b/bd/Fenerbah%C3%A7e_SK.png">Fenerbahçe</td>
-      </tr>
-      <tr>
-        <td>17:00</td>
-        <td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/7/7b/Besiktas_JK_Logo.png">Beşiktaş</td>
-        <td><img class="logo" src="https://upload.wikimedia.org/wikipedia/tr/5/5a/TrabzonsporAmblem.png">Trabzonspor</td>
-      </tr>
-    </tbody>
-  </table>
+  <div id="player-section" style="display:none;">
+    <h2 id="welcome"></h2>
+    <div class="buttons">
+      <button onclick="changeChannel('kanal1')">1. Kanal</button>
+      <button onclick="changeChannel('kanal2')">2. Kanal</button>
+      <button onclick="logout()">Çıkış Yap</button>
+    </div>
+    <video id="player" controls autoplay></video>
+  </div>
 </div>
 
-<div id="table-container">
-  <h2>Süper Lig Puan Tablosu</h2>
-  <table id="league-table">
-    <thead>
-      <tr>
-        <th>Sıra</th>
-        <th>Takım</th>
-        <th>O</th>
-        <th>G</th>
-        <th>B</th>
-        <th>M</th>
-        <th>A</th>
-        <th>Y</th>
-        <th>AV</th>
-        <th>P</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Tablo içeriği burada -->
-    </tbody>
-  </table>
-</div>
-
-<!-- Sohbete katıl linki -->
-<a href="sohbet.html" target="_blank" class="chat-link">💬 Canlı Sohbete Katıl</a>
-
-<script src="https://cdn.jsdelivr.net/npm/@clappr/player@0.4.7/dist/clappr.min.js"></script>
 <script>
-  const player = new Clappr.Player({
-    source: 'https://df16ea90s1u1080.0227f5e80acfd3ae.live/live/selcukbeinsports1/playlist.m3u8',
-    parentId: '#player-container',
-    width: '100%',
-    height: '540px',
-    autoPlay: true,
-    mute: false
-  });
+const sources = {
+  kanal1: "https://example.com/stream1.m3u8",
+  kanal2: "http://iptv.am000.tv:8000/live/add17/add17/294.ts" // BeIN Sports 2
+};
+
+const player = document.getElementById('player');
+player.src = sources.kanal1;
+
+function changeChannel(channel) {
+  player.src = sources[channel];
+  player.play();
+}
 </script>
 
 </body>
