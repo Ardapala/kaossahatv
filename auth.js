@@ -18,10 +18,7 @@ function register(){
   const password = document.getElementById('password').value;
   auth.createUserWithEmailAndPassword(email, password)
     .then(userCredential => {
-      db.collection('users').doc(userCredential.user.uid).set({
-        email: email,
-        tarih: new Date()
-      });
+      db.collection('users').doc(userCredential.user.uid).set({ email: email, tarih: new Date() });
       alert("✅ Kayıt başarılı!");
     })
     .catch(err => alert(err.message));
@@ -30,10 +27,7 @@ function register(){
 function login(){
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  auth.signInWithEmailAndPassword(email,password)
-    .catch(err => alert(err.message));
+  auth.signInWithEmailAndPassword(email,password).catch(err => alert(err.message));
 }
 
-function logout(){
-  auth.signOut();
-}
+function logout(){ auth.signOut(); }
