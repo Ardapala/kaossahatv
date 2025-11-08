@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPTV Müşteri Paneli</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .panel {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+    .panel h1 {
+      color: #00b894;
+      margin-bottom: 25px;
+    }
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    .input-group label {
+      font-size: 14px;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #222;
+      color: #fff;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #00b894;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #01976d;
+    }
+    .status {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    footer {
+      position: fixed;
+      bottom: 10px;
+      text-align: center;
+      width: 100%;
+      font-size: 13px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h1>IPTV Müşteri Paneli</h1>
+    <div class="input-group">
+      <label for="username">Kullanıcı Adı</label>
+      <input type="text" id="username" placeholder="örnek: arda123" />
+    </div>
+    <div class="input-group">
+      <label for="password">Şifre</label>
+      <input type="password" id="password" placeholder="******" />
+    </div>
+    <div class="input-group">
+      <label for="days">Abonelik Süresi (Gün)</label>
+      <input type="number" id="days" placeholder="örnek: 30" />
+    </div>
+    <button onclick="createAccount()">Hesap Oluştur</button>
+    <div class="status" id="status"></div>
+  </div>
+  <footer>© 2025 IPTV Satıcı Paneli - Tüm Hakları Saklıdır</footer>  <script>
+    function createAccount() {
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value.trim();
+      const days = document.getElementById('days').value.trim();
+      const status = document.getElementById('status');
+
+      if (!user || !pass || !days) {
+        status.style.color = 'red';
+        status.textContent = 'Lütfen tüm alanları doldurun!';
+        return;
+      }
+
+      // Basit bir doğrulama mesajı (sunucu eklenince burası değişebilir)
+      const expireDate = new Date();
+      expireDate.setDate(expireDate.getDate() + parseInt(days));
+
+      status.style.color = '#00b894';
+      status.innerHTML = `✅ Hesap oluşturuldu:<br> <b>Kullanıcı:</b> ${user}<br> <b>Şifre:</b> ${pass}<br> <b>Bitiş Tarihi:</b> ${expireDate.toLocaleDateString('tr-TR')}`;
+
+      // Hesap bilgilerini tarayıcıda sakla (isteğe bağlı)
+      localStorage.setItem('iptv_user', JSON.stringify({ user, pass, days, expireDate }));
+    }
+  </script></body>
+</html>
